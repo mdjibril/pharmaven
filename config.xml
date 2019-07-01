@@ -15,7 +15,7 @@
 		Jibril D Muhammad
 	</author>
 	
-	<content src="main.html" />
+	<content src="data/main.html" />
     
     <preference name="DisallowOverscroll" value="true" />
     <preference name="permissions" value="none" />
