@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<widget xmlns 		= "https://www.w3.org/ns/widgets"
+		xmlns:gap	= "https://phonegap.com/ns/1.0"
+		id			= "com.pharmaven"
+		version		= "2.0.0">
+
+	<name> Pharmaven </name>
+
+	<description>
+		A pharmaceutical inventory management system, keeping records of item in stock, out of stock, daily record sales
+	</description>
+
+	<author href="http://mdjibril.com" email="muhammadjibrildauda@gmial.com">
+		Jibril D Muhammad
+	</author>
+	
+	<content src="main.html" />
+    
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="permissions" value="none" />
+	<preference name="Splashscreen" value="screen" />
+	<preference name="SplashScreenDelay" value="5000" />
+  	<preference name="fullscreen" value="true" />
+  	<preference name="KeepRunning" value="true"/>
+    
+    <!-- Plugins -->
+	<plugin name="cordova-plugin-splashscreen" source="npm" spec="5.0.2" />
+    <plugin name="cordova-plugin-device" source="npm" spec="~1.1.1" />
+    <plugin name="cordova-plugin-contacts" source="npm" spec="~2.0.1" />
+    <plugin name="cordova-plugin-inappbrowser" source="npm" spec="~1.3.0" />
+    <plugin name="cordova-plugin-whitelist" source="npm" spec="~1.2.1" />
+    <plugin name="cordova-plugin-device-orientation" source="npm" spec="~1.0.2" />
+    
+    <platform name="android">
+        <icon qualifier="ldpi" src="res/icons/android/drawable-ldpi-icon.png" />
+        <icon qualifier="mdpi" src="res/icons/android/drawable-mdpi-icon.png" />
+        <icon qualifier="hdpi" src="res/icons/android/drawable-hdpi-icon.png" />
+        <icon qualifier="xhdpi" src="res/icons/android/drawable-xhdpi-icon.png" />
+        <icon qualifier="xxhdpi" src="res/icons/android/drawable-xxhdpi-icon.png" />
+        <icon qualifier="xxxhdpi" src="res/icons/android/drawable-xxxhdpi-icon.png" />
+        <icon src="res/icon.png" />
+
+        <splash qualifier="land-ldpi" src="res/screens/android/drawable-land-ldpi-screen.png" />
+        <splash qualifier="land-mdpi" src="res/screens/android/drawable-land-mdpi-screen.png" />
+        <splash qualifier="land-hdpi" src="res/screens/android/drawable-land-hdpi-screen.png" />
+        <splash qualifier="land-xhdpi" src="res/screens/android/drawable-land-xhdpi-screen.png" />
+        <splash qualifier="land-xxhdpi" src="res/screens/android/drawable-land-xxhdpi-screen.png" />
+        <splash qualifier="land-xxxhdpi" src="res/screens/android/drawable-land-xxxhdpi-screen.png" />
+        <splash qualifier="port-ldpi" src="res/screens/android/drawable-port-ldpi-screen.png" />
+        <splash qualifier="port-mdpi" src="res/screens/android/drawable-port-mdpi-screen.png" />
+        <splash qualifier="port-hdpi" src="res/screens/android/drawable-port-hdpi-screen.png" />
+        <splash qualifier="port-xhdpi" src="res/screens/android/drawable-port-xhdpi-screen.png" />
+        <splash qualifier="port-xxhdpi" src="res/screens/android/drawable-port-xxhdpi-screen.png" />
+        <splash qualifier="port-xxxhdpi" src="res/screens/android/drawable-port-xxxhdpi-screen.png" />
+        <splash src="res/splash.png" />
+    </platform>
+
+		<access origin="*"/>
+		<access origin="tel:*" launch-external="yes"/>
+	  	<access origin="mailto:*" launch-external="yes" />
+	  	<access origin="http://*" launch-external="yes"/>
+	  	<access origin="https://*" launch-external="yes"/>   
+
+	    <allow-intent href="tel:*" />
+	    <allow-intent href="mailto:*" />
+		<allow-intent href="http://*/*" />
+	    <allow-intent href="https://*/*" />
+	    <platform name="android">
+	        <allow-intent href="market:*" />
+	    </platform>
+		
+</widget>

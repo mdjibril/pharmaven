@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pharmaven Product Log</title>
+    <!-- Include meta tag to ensure proper rendering and touch zooming -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- jquery mobile stylesheet -->
+    <link rel="stylesheet" href="lib/jquerymobile/css/jquery.mobile-1.4.5.min.css">
+
+    <!-- jquery library 1.11.3 -->
+    <script src="lib/jquery/jquery.min.js"></script>
+
+    <!-- jquery mobile library -->
+    <script src="lib/jquerymobile/js/jquery.mobile-1.4.5.min.js"></script>
+
+    <!-- Other script files -->
+    <script type="text/javascript" src="js/databaseHandler.js"></script>
+    <script type="text/javascript" src="js/productHandler.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+</head>
+<body>
+<div data-role="page" id="addpage">
+    <div data-role="panel" id="addPagePanel">
+        <h1>Menu</h1>
+        <ul data-role="listview" data-inset="true">
+            <li data-role="list-divider">Product</li>
+            <li data-icon="plus"><a href="#addpage">Add</a></li>
+            <li data-icon="grid"><a href="#loadpage">Load</a></li>
+        </ul>
+    </div>
+    <div data-role="header" data-position="fixed">
+        <a href="#addPagePanel"
+           class="ui-btn ui-icon-bars ui-btn-icon-notext ui-corner-all ui-shadow"></a>
+        <h1>Add product</h1>
+    </div>
+    <div data-role="main" class="ui-content">
+        <form>
+            <div class="ui-field-contain">
+                <label for="txtproductName">Name:</label>
+                <input type="text" id="txtproductName" data-clear-btn="true"/>
+                <label for="txtCategory">Category:</label>
+                <select id="txtCategory" name="category" class="">
+                    <option value="analgesic">Analgesic</option>
+                    <option value="hematenic">Hematonic</option>
+                    <option value="antibiotic">Antibiotic</option>
+                    <option value="consumable">Consumables</option>
+                    <option value="firstaid">First aid</option>
+                    <option value="others">Others</option>
+                </select>
+                <label for="txtQuantity">Quantity:</label>
+                <input type="number" id="txtQuantity" data-clear-btn="true"/>
+                <label for="txtQuantityType">Package Type:</label>
+                <select id="txtQuantityType" name="Quantity" class="">
+                    <option value="carton">Carton</option>
+                    <option value="bottle">Bottle</option>
+                    <option value="satchet">Satchet</option>
+                    <option value="other">Other</option>
+                </select>
+                <label for="txtExpiryDate">Expiry date:</label>
+                <input type="date" id="txtExpiryDate" data-clear-btn="true"/>
+                <label for="btnAdd"></label>
+                <a class="ui-btn ui-icon-plus ui-btn-icon-left"
+                   id="btnAdd" onclick="addProduct()">Add</a>
+            </div>
+        </form>
+    </div>
+    <div data-role="footer" data-position="fixed">
+        <h1>PHARMAVEN</h1>
+    </div>
+</div>
+<div data-role="page" id="loadpage">
+    <div data-role="panel" id="loadPagePanel">
+        <h1>Menu</h1>
+        <ul data-role="listview" data-inset="true">
+            <li data-role="list-divider">Product</li>
+            <li data-icon="plus"><a href="#addpage">Add</a></li>
+            <li data-icon="grid"><a href="#loadpage">Load</a></li>
+        </ul>
+    </div>
+    <div data-role="header" data-position="fixed">
+        <a href="#loadPagePanel"
+           class="ui-btn ui-icon-bars ui-btn-icon-notext ui-corner-all ui-shadow"></a>
+        <h1>Load products</h1>
+    </div>
+    <div data-role="main" class="ui-content">
+        <form class="ui-filterable">
+            <input data-type="search" id="txtKeyword"/>
+        </form>
+        <ul data-role="listview" data-filter="true"
+            data-input="#txtKeyword"
+            data-inset="true"
+            id="lstProducts"
+        >
+        </ul>
+        <div data-role="popup" id="popupUpdateDelete">
+            <div data-role="header">
+                <a class="ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" data-rel="back"></a>
+                <h1>Options</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <a class="ui-btn ui-icon-delete ui-btn-icon-left ui-btn-inline"
+                   onclick="deleteProduct()"
+                >Delete</a>
+                <a class="ui-btn ui-icon-edit ui-btn-icon-left ui-btn-inline"
+                   href="#updatedialog"
+                >Update</a>
+            </div>
+        </div>
+    </div>
+    <div data-role="footer" data-position="fixed">
+        <h1>PHARMAVEN</h1>
+    </div>
+</div>
+<div data-role="dialog" id="updatedialog">
+    <div data-role="header">
+        <h1>Update product</h1>
+    </div>
+    <div data-role="main" class="ui-content">
+        <form>
+            <div class="ui-field-contain">
+                <label for="txtnewProductName">Name:</label>
+                <input type="text" id="txtnewProductName" data-clear-btn="true"/>
+                <label for="txtnewCategory">Category:</label>
+                <select id="txtnewCategory" name="category" class="form-control">
+                    <option value="analgesic">Analgesic</option>
+                    <option value="hematenic">Hematonic</option>
+                    <option value="antibiotic">Antibiotic</option>
+                    <option value="consumable">Consumables</option>
+                    <option value="firstaid">First aid</option>
+                    <option value="others">Others</option>
+                </select>
+                <label for="txtnewQuantity">Quantity:</label>
+                <input type="number" id="txtnewQuantity" data-clear-btn="true"/>
+                <label for="txtnewQuantityType">Package Type:</label>
+                <select id="txtnewQuantityType" name="Quantity" class="form-control">
+                    <option value="carton">Carton</option>
+                    <option value="bottle">Bottle</option>
+                    <option value="satchet">Satchet</option>
+                    <option value="other">Other</option>
+                </select>
+                <label for="txtnewExpiryDate">Expiry date:</label>
+                <input type="date" id="txtnewExpiryDate" data-clear-btn="true"/>
+                <label for="btnAdd"></label>
+                <a class="ui-btn ui-icon-plus ui-btn-icon-left"
+                   id="btnAdd" onclick="updateProduct()">Add</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

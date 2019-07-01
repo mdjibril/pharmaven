@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pharmaven Sales Log</title>
+	<!-- Include meta tag to ensure proper rendering and touch zooming -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- jquery mobile stylesheet -->
+    <link rel="stylesheet" href="../lib/jquerymobile/css/jquery.mobile-1.4.5.min.css">
+
+    <!-- jquery library 1.11.3 -->
+    <script src="../lib/jquery/jquery.min.js"></script>
+
+    <!-- jquery mobile library -->
+    <script src="../lib/jquerymobile/js/jquery.mobile-1.4.5.min.js"></script>
+
+    <!-- Other script files -->
+    <script type="text/javascript" src="../js/databaseHandler.js"></script>
+    <script type="text/javascript" src="../js/productHandler.js"></script>
+    <script type="text/javascript" src="../js/sales.js"></script>
+</head>
+<body>
+	<div data-role="page" id="addpage">
+	    <div data-role="panel" id="addPagePanel">
+	        <h1>Menu</h1>
+	        <ul data-role="listview" data-inset="true">
+	            <li data-role="list-divider">Sales</li>
+	            <li data-icon="plus"><a href="#addpage">Add Sales</a></li>
+	            <li data-icon="grid"><a href="#loadpage">Load Sales</a></li>
+	            <li data-icon="info"><a href="#loadaccount">Load Account</a></li>
+	        </ul>
+	    </div>
+	    <div data-role="header" data-position="fixed">
+	        <a href="#addPagePanel"
+	           class="ui-btn ui-icon-bars ui-btn-icon-notext ui-corner-all ui-shadow"></a>
+	        <h1>Add sales</h1>
+	    </div>
+	    <div data-role="main" class="ui-content">
+	        <form>
+	            <div class="ui-field-contain">
+	                <label for="txtsaleName">Name:</label>
+	                <input type="text" id="txtsaleName" data-clear-btn="true"/>
+	                <label for="txtsaleQuantity">Quantity:</label>
+	                <input type="text" id="txtsaleQuantity" data-clear-btn="true"/>
+	                <label for="txtsalePrice">Price:</label>
+	                <input type="number" id="txtsalePrice" data-clear-btn="true"/>
+	                <label for="txtsaleDate">Purchase date:</label>
+	                <input type="date" id="txtsaleDate" data-clear-btn="true"/>
+	                <label for="txtpaymentStatus">Status</label>
+	                <select id="txtpaymentStatus" name="status" class="form-control">
+	                    <option value="paid">Paid</option>
+	                    <option value="notpaid">Not Paid</option>
+	                </select>
+	                <label for="btnAdd"></label>
+	                <a class="ui-btn ui-icon-plus ui-btn-icon-left"
+	                   id="btnAdd" onclick="addSales()">Add</a>
+	            </div>
+	        </form>
+	    </div>
+	    <div data-role="footer" data-position="fixed">
+	        <h1>PHARMAVEN</h1>
+	    </div>
+	</div>
+	<div data-role="page" id="loadpage">
+	    <div data-role="panel" id="loadPagePanel">
+	        <h1>Menu</h1>
+	        <ul data-role="listview" data-inset="true">
+	            <li data-role="list-divider">Sales</li>
+	            <li data-icon="plus"><a href="#addpage">Add Sales</a></li>
+	            <li data-icon="grid"><a href="#loadpage">Load Sales</a></li>
+	            <li data-icon="info"><a href="#loadaccount">Load Account</a></li>
+	        </ul>
+	    </div>
+	    <div data-role="header" data-position="fixed">
+	        <a href="#loadPagePanel"
+	           class="ui-btn ui-icon-bars ui-btn-icon-notext ui-corner-all ui-shadow"></a>
+	        <h1>Load Sales</h1>
+	    </div>
+	    <div data-role="main" class="ui-content">
+	    	<!-- <div id="myTotalPrice"></div>
+	        <div id="myTotalPricePaid"></div>
+	        <div id="myTotalPriceNotPaid"></div> -->
+	        <form class="ui-filterable">
+	            <input data-type="search" id="txtKeyword" placeholder="search by product name, payment status, price" />
+	        </form>
+	        <ul data-role="listview" data-filter="true"
+	            data-input="#txtKeyword"
+	            data-inset="true"
+	            id="lstProducts"
+	        >
+	        </ul>
+	        <button class="btn-success" onclick="print()">Print</button>
+	        <div data-role="popup" id="popupUpdateDelete">
+	            <div data-role="header">
+	                <a class="ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" data-rel="back"></a>
+	                <h1>Options</h1>
+	            </div>
+	            <div data-role="main" class="ui-content">
+	                <a class="ui-btn ui-icon-delete ui-btn-icon-left ui-btn-inline"
+	                   onclick="deleteSales()"
+	                >Delete</a>
+	                <a class="ui-btn ui-icon-edit ui-btn-icon-left ui-btn-inline"
+	                   href="#updatedialog"
+	                >Update</a>
+	            </div>
+	        </div>
+	    </div>
+	    <div data-role="footer" data-position="fixed">
+	        <h1>PHARMAVEN</h1>
+	    </div>
+	</div>
+	<div data-role="page" id="loadaccount">
+		<div data-role="panel" id="loadAccountPanel">
+	        <h1>Menu</h1>
+	        <ul data-role="listview" data-inset="true">
+	            <li data-role="list-divider">Sales</li>
+	            <li data-icon="plus"><a href="#addpage">Add Sales</a></li>
+	            <li data-icon="grid"><a href="#loadpage">Load Sales</a></li>
+	            <li data-icon="info"><a href="#loadaccount">Load account</a></li>
+	        </ul>
+	    </div>
+	    <div data-role="header" data-position="fixed">
+	        <a href="#loadAccountPanel"
+	           class="ui-btn ui-icon-bars ui-btn-icon-notext ui-corner-all ui-shadow"></a>
+	        <h1>Load Account</h1>
+	    </div>
+	    <div data-role="main" class="ui-content">
+	    	<div id="myTotalPrice"></div>
+	        <div id="myTotalPricePaid"></div>
+	        <div id="myTotalPriceNotPaid"></div>
+	    </div>
+	    <div data-role="footer" data-position="fixed">
+	        <h1>PHARMA-VEN</h1>
+	    </div>	
+	</div>
+	<div data-role="dialog" id="updatedialog">
+	    <div data-role="header">
+	        <h1>Update product</h1>
+	    </div>
+	    <div data-role="main" class="ui-content">
+	        <form>
+	            <div class="ui-field-contain">
+	                <label for="txtnewsaleName">Name:</label>
+	                <input type="text" id="txtnewsaleName" data-clear-btn="true"/>
+	                <label for="txtnewsaleQuantity">Quantity:</label>
+	                <input type="text" id="txtnewsaleQuantity" data-clear-btn="true"/>
+	                <label for="txtnewsalePrice">Price:</label>
+	                <input type="number" id="txtnewsalePrice" data-clear-btn="true"/>
+	                <label for="txtnewsaleDate">Purchase date:</label>
+	                <input type="date" id="txtnewsalePrice" data-clear-btn="true"/>
+	                <label for="txtnewpaymentStatus">Status:</label>
+	                <select id="txtnewpaymentStatus" name="status" class="">
+	                    <option value="paid">Paid</option>
+	                    <option value="notpaid">Not Paid</option>
+	                </select>
+	                <label for="btnAdd"></label>
+	                <a class="ui-btn ui-icon-plus ui-btn-icon-left"
+	                   id="btnAdd" onclick="updateSales()">Add</a>
+	            </div>
+	        </form>
+	    </div>
+	</div>
+</body>
+</html>
